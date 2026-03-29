@@ -13,8 +13,7 @@
 
 ## Author
 
-**Mahmoud Alyosify**  
-School of Computing, Queen's University  
+**Mahmoud Alyosify** School of Computing, Queen's University  
 📧 mahmoud.alyosify@queensu.ca  
 Course: *CISC839 – Advanced Data Analytics*
 
@@ -35,47 +34,53 @@ Using a curated subset of the **AIDev dataset**, the study investigates how AI c
 
 ---
 
-## 📊 Dataset
+## Dataset & Schema
 
-- Source: [AIDev Dataset (Hugging Face)](https://huggingface.co/datasets/hao-li/AIDev)  
-- Filtered subset (**>100 stars repositories**)
+- **Source:** [AIDev Dataset (Hugging Face)](https://huggingface.co/datasets/hao-li/AIDev)  
+- **Scope:** Filtered subset (**>100 stars repositories**)
 
 | Type          | PR Count |
 |---------------|----------|
 | Agentic PRs   | 31,284   |
 | Human PRs     | 6,149    |
-| **Total**     | 37,433   |
+| **Total** | 37,433   |
+
+### Data Structure
+Below is the database schema used for the analytical pipeline:
+
+<p align="center">
+  <img src="img/schema.png" alt="Database Schema" width="600"/>
+</p>
 
 ---
 
 ## 📂 Repository Structure
 
-
-├── 
-├── figs/ # Figures and visualizations
-├── requirements.txt # Dependencies
-└── README.md # Project documentation
-
+```text
+├── notebook/
+│   └── notebook_Analyzing Review Effort in Human vs. Agentic Pull Requests.ipynb
+├── figs/            # Result visualizations
+├── img/             # Documentation assets (Schema, etc.)
+├── data/            # Local data subsets
+├── requirements.txt 
+└── README.md 
+```
 
 ---
 
 ## Key Findings
 
-### peed–Quality Paradox
+### ⚡ Speed–Quality Paradox
 - Agentic PRs resolve faster (**40.4 hrs vs. 92.97 hrs**)  
 - But merge less often (**76.8% vs. 82.6%**)  
-Speed reflects **rejection**, not necessarily efficiency
+- **Insight:** Speed reflects **rejection**, not necessarily efficiency.
 
----
+### 🤖 Authorship Effect
+- AI authorship significantly reduces TTR.
+- Suggests **reverse automation bias** (fast dismissal of AI output).
 
-### Authorship Effect
-- AI authorship significantly reduces TTR  
-- Suggests **reverse automation bias** (fast dismissal of AI output)
-
----
-
-### Structural Drivers of Review Effort
-- Review friction driven by **architectural dispersion**, not size  
+### 📉 Structural Drivers of Review Effort
+- Review friction is driven by **architectural dispersion**, not just code size.
 - Measured via:
   - **CDI (Cognitive Dispersion Index)**
   - **RICR (Rework-to-Initial Churn Ratio)**
@@ -84,21 +89,10 @@ Speed reflects **rejection**, not necessarily efficiency
 
 ## Methodology
 
-### 1. Data Engineering
-- Construction of:
-  - Time-to-Resolution (TTR)
-  - CDI & RICR indices
-
-### 2. Statistical Testing
-- Welch’s t-test (unequal variance)
-
-### 3. Regression Modeling
-- OLS with HC3 robust errors  
-- Isolates effect of AI authorship
-
-### 4. GenAI-Augmented Reanalysis
-- Logistic regression on merge outcomes  
-- Reveals **fast-rejection dynamic**
+1. **Data Engineering:** Construction of TTR, CDI, and RICR indices.
+2. **Statistical Testing:** Welch’s t-test (handling unequal variance).
+3. **Regression Modeling:** OLS with HC3 robust errors to isolate AI effect.
+4. **GenAI-Augmented Reanalysis:** Logistic regression revealing the **fast-rejection dynamic**.
 
 ---
 
@@ -115,34 +109,23 @@ Speed reflects **rejection**, not necessarily efficiency
 ## Reproducibility
 
 Install dependencies:
-
 ```bash
 pip install -r requirements.txt
+```
 
-Dataset loads directly via Hugging Face:
+The dataset loads directly via Hugging Face:
+`hf://datasets/hao-li/AIDev/`
 
-hf://datasets/hao-li/AIDev/
+---
 
-No manual download required.
+## ⚠️ Limitations
+- Observational data may contain unobserved confounders.
+- TTR mixes active review time with idle queue time.
 
-⚠️ Limitations
-Observational data → unobserved confounders
-TTR mixes active review with idle queue time
-Organizational workflows not explicitly modeled
-📄 License
-
-MIT License
+## 📄 License
+MIT License  
 © 2026 Mahmoud Sayed Youssef
 
-🙏 Acknowledgment
-
+## 🙏 Acknowledgment
 This work builds upon the AIDev dataset:
-
-@misc{li2025aiteammates,
-  title={The Rise of AI Teammates in Software Engineering (SE) 3.0},
-  author={Hao Li and Haoxiang Zhang and Ahmed E. Hassan},
-  year={2025},
-  eprint={2507.15003},
-  archivePrefix={arXiv},
-  primaryClass={cs.SE}
-}
+*Li et al. (2025). The Rise of AI Teammates in Software Engineering (SE) 3.0.*
