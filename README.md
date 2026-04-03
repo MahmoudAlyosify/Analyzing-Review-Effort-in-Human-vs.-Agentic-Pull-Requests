@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="figs/aidev_logo.png" alt="AIDev Logo" width="250"/>
+  <img src="img/aidev_logo.png" alt="AIDev Logo" width="250"/>
 </p>
 
 # Analyzing Review Effort in Human vs. Agentic Pull Requests  
@@ -96,16 +96,6 @@ Below is the database schema used for the analytical pipeline:
 
 ---
 
-## Example Outputs
-
-### Merge Behavior
-![merge](figs/pr_merge_compare_radar2.png)
-
-### Turnaround Time Distribution
-![ttr](figs/turnaround_distribution.png)
-
----
-
 ## Reproducibility
 
 Install dependencies:
@@ -122,7 +112,6 @@ The dataset loads directly via Hugging Face:
 - Observational data may contain unobserved confounders.
 - TTR mixes active review time with idle queue time.
 
-## 📄 License
 MIT License  
 © 2026 Mahmoud Sayed Youssef
 
